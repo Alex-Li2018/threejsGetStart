@@ -87,6 +87,35 @@ name
 GLint gl.getAttribLocation(program, name);
 ```
 
+#### WebGLRenderingContext.vertexAttrib[1234]f[v]()
+WebGLRenderingContext.vertexAttrib[1234]f[v]() 是 WebGL API 的方法，可以为顶点 attibute 变量赋值。
+
+```js
+/**
+index
+GLuint (en-US) 类型，指定了待修改顶点 attribute 变量的存储位置。
+
+v0, v1, v2, v3  最后一个参数齐次坐标参数
+浮点数类型Number，用于设置顶点 attibute 变量的各分量值。
+
+value
+Float32Array 类型，用于设置顶点 attibute 变量的向量值。
+
+返回值
+无。
+ */
+void gl.vertexAttrib1f(index, v0);
+void gl.vertexAttrib2f(index, v0, v1);
+void gl.vertexAttrib3f(index, v0, v1, v2);
+void gl.vertexAttrib4f(index, v0, v1, v2, v3);
+
+void gl.vertexAttrib1fv(index, value);
+void gl.vertexAttrib2fv(index, value);
+void gl.vertexAttrib3fv(index, value);
+void gl.vertexAttrib4fv(index, value);
+
+```
+
 ## 着色器
  
 ### Vertex shader 顶点着色器
@@ -121,4 +150,18 @@ void main() {
 坐标系统是笛卡尔坐标系，当你面向屏幕时X轴是水平的（正方向为右），Y轴是垂直的（正方向为下），而Z轴垂直于屏幕（正方向为外）。一般观察者的视角位于原点处。canvas的坐标系统与webGL不同，需要将前者映射到后者。具体如下：
 
 ![坐标系](./imgs/%E5%9D%90%E6%A0%87%E7%B3%BB.png)
+
+## WebGL相关函数命名规范
+
+WebGL中的函数命名逻辑遵循OpenGL ES 2.0中的函数名，我们知道后者是前者的基础规范，OpenGL的韩函数名由三个部分组成<基础函数名><参数个数><参数类型>WebGL的函数名使用同样的结构。
+
+```js
+gl.vertexAttrib1f
+
+// gl.vertexAttrib基础函数名
+// 1 参数个数为1个
+// f 表示浮点数 i 表示整数 v 表示数组前面的数字表示数组元素的个数 
+```
+
+
 
