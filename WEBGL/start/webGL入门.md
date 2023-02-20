@@ -43,23 +43,70 @@ gl.STENCIL_BUFFER_BIT //模板缓冲区
 void gl.clear(mask);
 ```
 
+#### WebGLRenderingContext.drawArrays()
+方法用于从向量数组中绘制图元。
+
+```js
+
+/**
+mode
+GLenum (en-US) 类型，指定绘制图元的方式，可能值如下。
+gl.POINTS: 绘制一系列点。
+gl.LINE_STRIP: 绘制一个线条。即，绘制一系列线段，上一点连接下一点。
+gl.LINE_LOOP: 绘制一个线圈。即，绘制一系列线段，上一点连接下一点，并且最后一点与第一个点相连。
+gl.LINES: 绘制一系列单独线段。每两个点作为端点，线段之间不连接。
+gl.TRIANGLE_STRIP：绘制一个三角带。
+gl.TRIANGLE_FAN：绘制一个三角扇。
+gl.TRIANGLES: 绘制一系列三角形。每三个点作为顶点。
+
+first
+GLint (en-US) 类型，指定从哪个点开始绘制。
+
+count
+GLsizei (en-US) 类型，指定绘制需要使用到多少个点。
+ */
+void gl.drawArrays(mode, first, count);
+```
+
+#### WebGLRenderingContext.getAttribLocation()
+方法返回了给定WebGLProgram对象中某属性的下标指向位置。
+
+```js
+/**
+ *
+参数
+program
+一个包含了属性参数的WebGLProgram 对象。
+
+name
+需要获取下标指向位置的 DOMString 属性参数名
+
+返回值
+表明属性位置的下标 GLint (en-US) 数字，如果找不到该属性则返回 -1。
+ */
+GLint gl.getAttribLocation(program, name);
+```
+
 ## 着色器
  
 ### Vertex shader 顶点着色器
 顶点着色器是用来描述顶点特性（如位置 颜色等）的程序。顶点（vertex）是指二维或三维空间中的一个点，比如二维或三维图形的端点与交点。  
+变量释意： gl_position: 点的位置必须赋值否则程序报错； gl_PointSize：点的尺寸如果不赋值默认是1.0。
 ```js
 void main() {
     // Set the vertex coordinates of the point
-    // 设置顶点坐标三维 [0， 0，0]
+    // 设置顶点坐标三维 x y z最后一个参数齐次坐标参数
     gl_Position = vec4(0.0, 0.0, 0.0, 1.0); 
     // Set the point size
-    // 尺寸是1opx
+    // 尺寸是1opx float
     gl_PointSize = 10.0;            
 }
-变量释意： gl_position: 点的位置必须赋值否则程序报错； gl_PointSize：点的尺寸如果不赋值默认是1.0。
 ```
 ### Fragment shader 片元着色器
-进行逐片元处理过程如光照，片元fragment是webgl中的术语，你可以理解为像素（图像的单元）。
+进行逐片元处理过程如光照，片元fragment是webgl中的术语，你可以理解为像素（图像的单元）。片元包括这个像素的位置,颜色等其他信息。
+
+vec4: 表示由4个浮点数组成的矢量
+
 ```js
 void main() {
     // Set the point color
@@ -68,3 +115,10 @@ void main() {
 }
 ```
 上述的语句是GLSL ES语言，着色器运行在WebGL中而不是javascript中
+
+## webGL坐标系统
+
+坐标系统是笛卡尔坐标系，当你面向屏幕时X轴是水平的（正方向为右），Y轴是垂直的（正方向为下），而Z轴垂直于屏幕（正方向为外）。一般观察者的视角位于原点处。canvas的坐标系统与webGL不同，需要将前者映射到后者。具体如下：
+
+![坐标系](./imgs/%E5%9D%90%E6%A0%87%E7%B3%BB.png)
+
