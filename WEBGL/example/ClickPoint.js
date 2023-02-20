@@ -55,7 +55,7 @@ function click(ev, gl, canvas, a_position)  {
     var x = ev.clientX
     var y = ev.clientY
     var rect = ev.target.getBoundingClientRect()
-
+    // 坐标转换
     x = ((x - rect.left) - canvas.width/2)/(canvas.width/2);
     y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
     
