@@ -52,25 +52,26 @@ function main() {
 
 var g_point = []
 function click(ev, gl, canvas, a_position)  {
-    var x = ev.clientX
-    var y = ev.clientY
-    var rect = ev.target.getBoundingClientRect()
-    // 坐标转换
-    x = ((x - rect.left) - canvas.width/2)/(canvas.width/2);
-    y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
-    
-    g_point.push(x)
-    g_point.push(y)
+  var x = ev.clientX
+  var y = ev.clientY
+  var rect = ev.target.getBoundingClientRect()
+  // 坐标转换
+  x = ((x - rect.left) - canvas.width/2)/(canvas.width/2);
+  y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
+  
+  g_point.push(x)
+  g_point.push(y)
 
-    // Clear <canvas>
-    gl.clear(gl.COLOR_BUFFER_BIT);
+  // Clear <canvas>
+  gl.clear(gl.COLOR_BUFFER_BIT);
 
-    var len = g_point.length;
-    for(var i = 0; i < len; i += 2) {
-        // Pass the position of a point to a_Position variable
-        gl.vertexAttrib3f(a_position, g_point[i], g_point[i+1], 0.0);
+  var len = g_point.length;
+  // 这里+2是每次去数组的两个元素做为x y的值
+  for(var i = 0; i < len; i += 2) {
+    // Pass the position of a point to a_Position variable
+    gl.vertexAttrib3f(a_position, g_point[i], g_point[i+1], 0.0);
 
-        // Draw
-        gl.drawArrays(gl.POINTS, 0, 1);
-    }
+    // Draw
+    gl.drawArrays(gl.POINTS, 0, 1);
+  }
 }

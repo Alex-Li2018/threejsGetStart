@@ -69,7 +69,7 @@ void gl.drawArrays(mode, first, count);
 ```
 
 #### WebGLRenderingContext.getAttribLocation()
-方法返回了给定WebGLProgram对象中某属性的下标指向位置。
+获取指定名称的attribute变量的存储位置。
 
 ```js
 /**
@@ -79,7 +79,7 @@ program
 一个包含了属性参数的WebGLProgram 对象。
 
 name
-需要获取下标指向位置的 DOMString 属性参数名
+需要获取下标指向位置的 attribute 属性参数名
 
 返回值
 表明属性位置的下标 GLint (en-US) 数字，如果找不到该属性则返回 -1。
@@ -113,7 +113,39 @@ void gl.vertexAttrib1fv(index, value);
 void gl.vertexAttrib2fv(index, value);
 void gl.vertexAttrib3fv(index, value);
 void gl.vertexAttrib4fv(index, value);
+```
 
+#### WebGLRenderingContext.uniform[1234][fi][v]()
+将数据(v0,v1,v2,v3)传输给由location参数指定的uniform变量
+
+```js
+/**
+ * loaction 指定要修改的uniform变量存储地址
+ * v0 - v4指定填充uniform变量的第一至第四分量的值
+ */
+uniform1f(location, v0)
+uniform2f(location, v0, v1)
+uniform3f(location, v0, v1, v2)
+uniform4f(location, v0, v1, v2, v3)
+```
+
+#### WebGLRenderingContext.getUniformLocation()
+获取指定名称的uniform变量的存储位置。
+
+```js
+/**
+ *
+参数
+program
+一个包含了属性参数的WebGLProgram 对象。
+
+name
+需要获取下标指向位置的 uniform 属性参数名
+
+返回值
+表明属性位置的下标 GLint (en-US) 数字，如果找不到该属性则返回 -1。
+ */
+gl.getUniformLocation(program, name)
 ```
 
 ## 着色器
@@ -145,6 +177,50 @@ void main() {
 ```
 上述的语句是GLSL ES语言，着色器运行在WebGL中而不是javascript中
 
+### javaScript向OPEN GL中传参
+
+#### attribute变量
+传输的是与顶点相关的数据。attribute被称为储存限定符，attribute变量必须声明为一个全局变量，数据将从着色器外部传给该变量。且必须遵循以下格式：
+
+**<存储限定符><类型><变量名>**
+**attribute vec4 a_position**
+
+其中数据类型如下：
+
+|类型|描述|
+|--|--|
+|float|浮点数|
+|vec4|表示四个浮点数组成的矢量|
+
+```js
+var VSHADER_SOURCE = 
+  'attribute vec4 a_position;\n' +
+  'attribute float a_positionSize;\n' +
+  'void main() {\n' +
+  '  gl_Position = a_position;\n' + // Set the vertex coordinates of the point
+  '  gl_PointSize = a_positionSize;\n' +                    // Set the point size
+  '}\n';
+
+// 获取attribute变量的存储位置
+var a_position = gl.getAttribLocation(gl.program, 'a_position')
+var a_positionSize = gl.getAttribLocation(gl.program, 'a_positionSize')
+
+// 赋值给a_position
+gl.vertexAttrib3f(a_position, 0.0,0.0,0.0)
+gl.vertexAttrib1f(a_positionSize, 20.0)
+```
+
+#### uniform变量
+传输的是对于所有顶点都相同（或与顶点无关）的数据。
+
+**<存储限定符><类型><变量名>**
+**uniform vec4 u_fragColor**
+
+```js
+
+```
+
+
 ## webGL坐标系统
 
 坐标系统是笛卡尔坐标系，当你面向屏幕时X轴是水平的（正方向为右），Y轴是垂直的（正方向为下），而Z轴垂直于屏幕（正方向为外）。一般观察者的视角位于原点处。canvas的坐标系统与webGL不同，需要将前者映射到后者。具体如下：
@@ -152,6 +228,7 @@ void main() {
 ![坐标系](./imgs/%E5%9D%90%E6%A0%87%E7%B3%BB.png)
 ![坐标系](./imgs/webGL.png)
 
+需要注意的是WebGL的坐标区间是-1.0到1.0。
 ## WebGL相关函数命名规范
 
 WebGL中的函数命名逻辑遵循OpenGL ES 2.0中的函数名，我们知道后者是前者的基础规范，OpenGL的韩函数名由三个部分组成<基础函数名><参数个数><参数类型>WebGL的函数名使用同样的结构。
