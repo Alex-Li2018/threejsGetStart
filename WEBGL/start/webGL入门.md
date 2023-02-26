@@ -115,22 +115,8 @@ void gl.vertexAttrib3fv(index, value);
 void gl.vertexAttrib4fv(index, value);
 ```
 
-#### WebGLRenderingContext.uniform[1234][fi][v]()
-将数据(v0,v1,v2,v3)传输给由location参数指定的uniform变量
-
-```js
-/**
- * loaction 指定要修改的uniform变量存储地址
- * v0 - v4指定填充uniform变量的第一至第四分量的值
- */
-uniform1f(location, v0)
-uniform2f(location, v0, v1)
-uniform3f(location, v0, v1, v2)
-uniform4f(location, v0, v1, v2, v3)
-```
-
 #### WebGLRenderingContext.getUniformLocation()
-获取指定名称的uniform变量的存储位置。
+获取指定名称的uniform变量的存储位置。uniform变量是与顶点无关或一致的数据。
 
 ```js
 /**
@@ -146,6 +132,20 @@ name
 表明属性位置的下标 GLint (en-US) 数字，如果找不到该属性则返回 -1。
  */
 gl.getUniformLocation(program, name)
+```
+
+#### WebGLRenderingContext.uniform[1234][fi][v]()
+将数据(v0,v1,v2,v3)传输给由location参数指定的uniform变量，需要接收的是齐次坐标。
+
+```js
+/**
+ * loaction 指定要修改的uniform变量存储地址
+ * v0 - v4指定填充uniform变量的第一至第四分量的值
+ */
+uniform1f(location, v0)
+uniform2f(location, v0, v1)
+uniform3f(location, v0, v1, v2)
+uniform4f(location, v0, v1, v2, v3)
 ```
 
 ## 着色器
