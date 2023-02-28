@@ -148,6 +148,30 @@ uniform3f(location, v0, v1, v2)
 uniform4f(location, v0, v1, v2, v3)
 ```
 
+#### WebGLRenderingContext.uniformMatrix[234]fv()
+WebGL API 的**WebGLRenderingContext.uniformMatrix[234]fv()** 方法为 uniform variables 指定了矩阵值 .
+
+该方法的 3 个版本 (uniformMatrix2fv(), uniformMatrix3fv(), 和unifomMatrix4fv()) ,分别以二阶，三阶，和四阶方阵作为输入值，它们应是分别具有 4,9,16 个浮点数的数组
+
+```js
+/**
+location
+WebGLUniformLocation 对象包含了要修改的 uniform attribute 位置。位置使用 getUniformLocation() (en-US)获得。
+
+transpose
+GLboolean (en-US) 指定是否转置矩阵。webGL中必须为 false.
+
+value
+Float32Array 型或者是 GLfloat 序列值。假定值以列主要顺序提供。
+
+返回值
+undefined
+ */
+WebGLRenderingContext.uniformMatrix2fv(location, transpose, value);
+WebGLRenderingContext.uniformMatrix3fv(location, transpose, value);
+WebGLRenderingContext.uniformMatrix4fv(location, transpose, value);
+```
+
 ## 着色器
  
 ### Vertex shader 顶点着色器
