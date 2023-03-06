@@ -1,8 +1,8 @@
 # webGL入门
 
 ## WebGLRenderingContext
-WebGLRenderingContext 接口提供基于 OpenGL ES 2.0 的绘图上下文，用于在 HTML <canvas> 元素内绘图。
-要获得这个接口的对象以用于 2D 和 3D 的图形渲染，可以通过在 <canvas> 元素上调用 getContext() 函数，调用时传入“webgl”参数：
+WebGLRenderingContext 接口提供基于 OpenGL ES 2.0 的绘图上下文，用于在 HTML**canvas**元素内绘图。
+要获得这个接口的对象以用于 2D 和 3D 的图形渲染，可以通过在**canvas** 元素上调用 getContext() 函数，调用时传入“webgl”参数：
 ```js
 const canvas = document.getElementById('myCanvas');
 const gl = canvas.getContext('webgl');
@@ -255,7 +255,7 @@ gl.vertexAttrib1f(a_positionSize, 20.0)
 需要注意的是WebGL的坐标区间是-1.0到1.0。
 ## WebGL相关函数命名规范
 
-WebGL中的函数命名逻辑遵循OpenGL ES 2.0中的函数名，我们知道后者是前者的基础规范，OpenGL的韩函数名由三个部分组成<基础函数名><参数个数><参数类型>WebGL的函数名使用同样的结构。
+WebGL中的函数命名逻辑遵循OpenGL ES 2.0中的函数名，我们知道后者是前者的基础规范，OpenGL的函数名由三个部分组成<基础函数名><参数个数><参数类型>WebGL的函数名使用同样的结构。
 
 ```js
 gl.vertexAttrib1f
