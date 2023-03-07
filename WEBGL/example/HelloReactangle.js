@@ -60,7 +60,7 @@ function initVertexBuffers(gl) {
     return -1;
   }
 
-  // Bind the buffer object to target
+  // Bind the buffer object to target 第一个参数表示缓冲区包含了顶点参数
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   // Write date into the buffer object
   gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);

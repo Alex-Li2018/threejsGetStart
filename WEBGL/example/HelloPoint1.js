@@ -29,12 +29,12 @@ function main() {
     return;
   }
 
-  // Specify the color for clearing <canvas>
+  // Specify the color for clearing <canvas> 最后一位是透明度
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  // Draw a point
+  // Draw a point 从第0个点开始绘制且绘制一个点
   gl.drawArrays(gl.POINTS, 0, 1);
 }

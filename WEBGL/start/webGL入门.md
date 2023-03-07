@@ -13,7 +13,7 @@ const gl = canvas.getContext('webgl');
 
 #### WebGLRenderingContext.clearColor()
 WebGL API 的 WebGLRenderingContext.clearColor() 方法用于设置清空颜色缓冲时的颜色值。
-这指定调用 clear() 方法时使用的颜色值。这些值在 0 到 1 的范围间。
+这指定调用 clear() 方法时使用的颜色值。这些值在 0 到 1 的范围间。缓冲区默认颜色是（0.0, 0.0, 0.0, 0.0）
 
 ```js
 /**
@@ -241,7 +241,7 @@ gl.vertexAttrib1f(a_positionSize, 20.0)
 **uniform vec4 u_fragColor**
 
 ```js
-
+uniform mat4 u_ModelMatrix
 ```
 
 
