@@ -1,5 +1,7 @@
 # OpenGL ES着色器语言（GLSL ES）
 
+[GLSL_ES_Specification_3.20](https://registry.khronos.org/OpenGL/specs/es/3.2/GLSL_ES_Specification_3.20.pdf)
+
 GLSL ES (OpenGL Shading Language for Embedded Systems)是OpenGL ES平台上使用的着色器语言。它是一种高级着色器语言，用于编写着色器程序，用于控制OpenGL ES渲染管线中的图形渲染和图像处理过程。
 
 GLSL ES可以在移动设备和嵌入式设备等资源受限的环境中运行。它支持着色器的高度可编程性，允许开发人员自定义渲染管线，以实现更高质量的渲染效果和更好的图形性能。
@@ -282,3 +284,123 @@ $\begin{bmatrix}
 
 见矩阵乘法
 
+## 结构体
+
+struct关键字定义结构体
+
+```js 
+// 定义结构体与定义变量同时提升
+struct light {
+    // 光的颜色
+    vec4 color
+    // 位置
+    veec3 position
+    // 类型变量 ll
+} ll;
+```
+
+赋值与构造
+结构体有标准的构造函数 其名称与结构体名一致，构造函数的参数顺序必须与结构体定义的顺序一致。
+
+```js
+ll = light(vec4(0.0, 1.0, 2.0, 3.0), vec3(1.0, 2.0, 3.0))
+```
+
+访问成员
+
+与js对象一致
+```js
+ll.color
+ll.position
+```
+
+运算符
+
+只支持赋值 = 和比较  **==** 或 **!=**
+
+## 数组
+
+只支持一维数组，数组对象不支持pop()和push()等操作
+
+```js
+// 声明含有4个浮点元素的数组
+float floatArray[4]
+// 声明含有2个vec4的对象数组
+float vec4Array[2]
+```
+
+数组的元素不能在声明的时候一次性的初始化，而必须显式的对每个元素进行初始化。
+
+```js
+vec4Array[0] = vec4(1.0, 2.0, 3.0, 4.0)
+vec4Array[1] = vec4(1.0, 2.0, 3.0, 4.0)
+```
+
+## 取样器（纹理）
+
+GLSL ES内置类型。我们必须通过该类型变量访问纹理，有两种基本的取样器类型： sampler2D 和 samplerCube。取样器只能是uniform变量，或者需要访问的纹理函数 如texture2D()
+
+```js
+uniform sampler2D u_Sampler
+```
+
+mediump是一个精度限定字
+
+|着色器|表示最大数量的内置常量|最小数量|
+|---|---|---|
+|顶点着色器|const mediump int gl_MaxVertexTextureImageUnits|0|
+|片云着色器|const mediump int gl_MaxTextureImageUnits|8|
+
+## 程序流程控制：分支和循环
+
+分支 if-else
+
+```js
+if (distance < 0.5) {
+    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0)
+} else {
+    gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0)
+}
+```
+
+循环语句
+
+```js
+for(int i = 0; i < 2; i++) {
+    sum += i
+}
+```
+
+- continue 中止当前循环 跳入下一次循环
+- break 中止当前循环 并跳出整个循环
+- dicard 放弃当前片元直接处理下一个片元
+
+## 函数
+
+返回类型 函数名(type0 arg0, type1 arg1, type2 arg2) {
+    .....
+    return 返回值
+}
+
+```js
+float square(flaot value) {
+    return value * value
+}
+
+square(2.0)
+```
+
+- **注意递归函数不能出现**
+- 规范声明：必须在调用之前声明该函数
+
+### 参数限定词
+
+可以为函数参数指定限定字，以控制参数的行为。可以定位为：1. 传递给函数的 2. 将要在函数中赋值的 3. 既要传递给函数的，也要在函数中被赋值的
+
+|类别|规则|描述|
+|---|---|---|
+|in|向函数传入值|参数传入函数，可以被修改可以直接使用，修改之后不影响参数|
+|const in|向函数传入值|参数传入函数，不能被修改传入变量的引用，可以直接使用|
+|out|在函数内部被赋值，并被传出|参数传入函数，修改传入变量的引用，修改之后影响函数外部传入的变量|
+|inout|传入函数，同时在函数内部被赋值，并被传出|传入变量的引用，函数会用到变量的初始值，然后修改变量的值。会影响外部传入的变量|
+**默认是in**
