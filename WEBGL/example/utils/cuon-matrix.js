@@ -16,6 +16,7 @@ var Matrix4 = function(opt_src) {
     var i, s, d;
     if (opt_src && typeof opt_src === 'object' && opt_src.hasOwnProperty('elements')) {
       s = opt_src.elements;
+      // 16个32位浮点数的元素
       d = new Float32Array(16);
       for (i = 0; i < 16; ++i) {
         d[i] = s[i];

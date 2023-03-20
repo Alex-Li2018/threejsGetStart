@@ -452,3 +452,70 @@ mediump flaot size
 ```
 
 数据类型的默认精度
+
+## 预处理Preprocessor
+
+```js
+#
+#define
+#undef
+#if
+#ifdef
+#ifndef
+#else
+#elif
+#endif
+#error
+#pragma
+#extension
+#line
+```
+内置的宏
+
+```c
+__LINE__
+__FILE__
+__VERSION__
+GL_ES
+```
+
+`__LINE__` 将被替换为一个10进制的常量，表示当前源码的行号.
+`__FILE__` 将替换一个十进制整数常量，表示当前正在处理哪个源字符串号.
+`__VERSION__` will substitute a decimal integer reflecting the version number of the OpenGL ES Shading Language. The version of the shading language described in this document will have `__VERSION__` substitute the decimal integer 320.
+`GL_ES` will be defined and set to 1. 
+
+### 常量定义
+可以使用#define指令来定义常量。例如：
+```c
+#define PI 3.1415926
+```
+在程序中使用时，PI将被替换为3.1415926。
+
+### 函数定义
+可以使用#define指令定义一个带参数的宏函数。例如：
+```c
+#define SQUARE(x) (x * x)
+```
+在程序中使用时，SQUARE(5)将被替换为(5 * 5)，即25。
+
+### 代码块定义
+可以使用#define指令定义一个代码块宏。例如
+```c
+#define MY_FUNCTION(x) \
+    if (x < 0.0) { \
+        return 0.0; \
+    } else { \
+        return x; \
+    }
+```
+在程序中使用时，MY_FUNCTION(-1.0)将被替换为：
+```c
+if (-1.0 < 0.0) {
+    return 0.0;
+} else {
+    return -1.0;
+}
+```
+注意，代码块宏需要使用反斜杠（\）来表示换行符，否则会出现语法错误。
+
+除了#define指令外，还有一些其他的宏指令可以用来控制预处理器的行为，例如#ifdef、#ifndef、#if、#else和#endif等。这些指令通常用于条件编译和头文件的包含等。
