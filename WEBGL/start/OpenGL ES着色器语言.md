@@ -351,7 +351,15 @@ mediump是一个精度限定字
 |顶点着色器|const mediump int gl_MaxVertexTextureImageUnits|0|
 |片云着色器|const mediump int gl_MaxTextureImageUnits|8|
 
-## 程序流程控制：分支和循环
+## 语句和声明
+
+statements and declarations
+• function definitions
+• selection (if-else and switch-case-default)
+• iteration (for, while, and do-while)
+• jumps (discard, return, break, and continue)
+
+### 程序流程控制：分支和循环
 
 分支 if-else
 
@@ -388,6 +396,11 @@ float square(flaot value) {
 }
 
 square(2.0)
+```
+
+```c
+void func1() { }
+void func2() { return func1(); } // illegal return statement
 ```
 
 - **注意递归函数不能出现**
